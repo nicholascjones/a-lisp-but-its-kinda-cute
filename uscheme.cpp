@@ -111,7 +111,9 @@ Node *parse_expression(istream &s) {
         }
 
     }
-
+    //cout << token<< endl;
+    //cout << left->value << endl;
+    //cout << right->value << endl;
     return new Node(token, left, right); 
 }
 
