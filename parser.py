@@ -20,38 +20,37 @@ class ParseNode:
 				tokenized.append(term)
 			else:
 				print "Syntax error"
-				break
+				return
 
 		self.tokenized = tokenized
+		#return self.tokenized
 
-
-	def parse_token(self.tokenized):
+	def parse_token(self):
 
 		s = self.tokenized.pop(0)
-
+		print s
 		if s is '(' or s is ')':
 			token = s
-		elif s is in self.tokens:
+		elif s in self.tokens:
 			token = s
 		elif s.isalpha() or s.isdigit():
 			token = s
 
 		return token
 
-	def parse_expression(self.tokenized):
+	def parse_expression(self):
 		left = None
 		right = None
-		token = parse_token(self.tokenized)
+		token = self.parse_token()
 		if token is ')':
-			print "Syntax error: cannot start with ')'"
-			break
+			pass
 		if token is '(':
-			token = parse_token(self.tokenized)
-			left = parse_expression(self.tokenized)
+			token = self.parse_token()
+			left = self.parse_expression()
 			if left:
-				right = parse_expression(s)
+				right = self.parse_expression()
 			if right:
-				parse_token(s)
+				self.parse_token()
 
 		return ParseNode(token, left, right)
 
@@ -62,6 +61,13 @@ class ParseNode:
 t1 = '(hey guys (j) sup )'
 
 
-p = ParseNode(t1)
+p = ParseNode()
+p.read_text_format(t1)
+Z = p.parse_expression()
+print Z.tokenized
+print Z.left
+print Z.right
 
-print p.read_text_format()
+
+
+
