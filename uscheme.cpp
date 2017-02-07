@@ -64,12 +64,12 @@ string parse_token(istream &s) {
     
     while (isspace(s.peek()))
     {
-        s.get();       
+        s.get(); //wash
     }
    
     if ((s.peek() == ')') || (s.peek() == '(')) //s is a parenthesis or operator
     {
-        token = s.get();
+        token = s.get(); //take token
     }
     else if ((s.peek() == '+') || (s.peek() == '-') || (s.peek() == '/') || (s.peek() == '*'))
     {
