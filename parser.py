@@ -5,7 +5,7 @@ tokens = set(['+','-','/','*','<','>','?','(',')'])
 class ParseNode:
 
 	def __init__(self, tokenized=None, left=None, right=None):
-		self.tokenized = None
+		self.tokenized = tokenized
 		self.left = left
 		self.right = right
 		#self.tokens = set(['+','-','/','*','<','>','?','(',')'])
@@ -36,6 +36,7 @@ def parse_token(tokenized):
 	elif s.isalpha() or s.isdigit():
 		token = s
 
+	#print "token = " + str(token)
 	return token
 
 def parse_expression(tokenized):
@@ -60,7 +61,15 @@ def parse_expression(tokenized):
 
 
 def dfs_recursive(rt):
-	print parse_expression()
+	print "(Node: value = " + str(rt.tokenized)
+	if rt.left:
+		dfs_recursive(rt.left)
+		print "left = " + str(rt.left.tokenized)
+	if rt.right:
+		dfs_recursive(rt.right)
+		print "right = " + str(rt.right.tokenized)
+	print ")"
+
 
 t1 = '( + 1 (- 2 3))'
 
@@ -68,8 +77,12 @@ t1 = '( + 1 (- 2 3))'
 tk = read_text_format(t1)
 #print tk
 z = parse_expression(tk)
+"""
+print z.tokenized
 print z.left
 print z.right
+"""
+dfs_recursive(z)
 #print z.left.tokenized
 #print z.right.tokenized
 
