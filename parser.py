@@ -1,6 +1,8 @@
 from string import *
 
-tokens = set(['+','-','/','*','<','>','?','(',')'])
+tokens = set(['+','-','/','*','<','>','?','(',')','eq?'])
+
+vs = {}
 
 class ParseNode:
 
@@ -42,6 +44,8 @@ def parse_token(tokenized):
 	token = ''
 	#print s
 	if s is '(' or s is ')':
+		token = s
+	elif s == 'define':
 		token = s
 	elif s in tokens:
 		token = s
@@ -110,28 +114,37 @@ def evaluate_r(n, stack):
 		elif n.tokenized == "*":
 			val *= stack.pop()
 			stack.append(val)
+		elif n.tokenized == "eq?":
+			stack.append(val==stack.pop())
 
 def evaluate(n):
 
 	s = []
 	evaluate_r(n,s)
 
-	return s[-1]
+	try: 
+		return s[-1]
+	except:
+		return None
 
 
 t1 = '( + (* 1 (- 2 3)) (- 69 55))'
 t2 = '(- 69 55)'
 t3 = '(* 100 67)'
 t4 = '(/ 5 2)'
+t5 = '(def a 1)'
+t6 = '(eq? 1 1)'
 
 
-tk = read_text_format(t1)
+
+tk = read_text_format(t6)
 
 z = parse_expression(tk)
 
 dfs_recursive(z)
 
 print evaluate(z)
+
 
 
 
