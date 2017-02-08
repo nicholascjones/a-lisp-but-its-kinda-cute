@@ -4,10 +4,23 @@ tokens = set(['+','-','/','*','<','>','?','(',')'])
 
 class ParseNode:
 
-	def __init__(self, tokenized=None, left=None, right=None):
+	def __init__(self, tokenized=None, left=None, right=None, flt = False):
+		self.flt = True
+		"""
+		if tokenized.isdigit():
+			print tokenized
+			if isinstance(tokenized, float):
+				print "nice, float"
+				self.flt = True
+			else:
+				print "nah, int"
+				self.float = False
+		"""
 		self.tokenized = tokenized
 		self.left = left
 		self.right = right
+
+
 		#self.tokens = set(['+','-','/','*','<','>','?','(',')'])
 
 
@@ -17,26 +30,26 @@ def read_text_format(txt):
 	txt = txt.replace('(',' ( ')
 	txt = txt.replace(')',' ) ')
 	for term in txt.split():
-		if term in tokens or term.isalpha() or term.isdigit(): #checks for validity
+		if term in tokens:
 			tokenized.append(term)
-		else:
-			print "Syntax error"
-			return
+		elif term.isalnum():
+			tokenized.append(term)
 
 	return tokenized
 
 def parse_token(tokenized):
-
 	s = tokenized.pop(0)
+	token = ''
 	#print s
 	if s is '(' or s is ')':
 		token = s
 	elif s in tokens:
 		token = s
-	elif s.isalpha() or s.isdigit():
+	elif s.isalpha or s.isnum():
 		token = s
 
 	#print "token = " + str(token)
+	#print token
 	return token
 
 def parse_expression(tokenized):
@@ -79,7 +92,10 @@ def evaluate_r(n, stack):
 	if n.left:
 		evaluate_r(n.left,stack)
 	if n.tokenized.isdigit():
-		stack.append(int(n.tokenized))
+		if n.flt:
+			stack.append(float(n.tokenized))
+		else:
+			stack.append(int(n.tokenized))
 	else:
 		val = stack.pop()
 		if n.tokenized == "+":
@@ -95,7 +111,6 @@ def evaluate_r(n, stack):
 			val *= stack.pop()
 			stack.append(val)
 
-
 def evaluate(n):
 
 	s = []
@@ -104,11 +119,13 @@ def evaluate(n):
 	return s[-1]
 
 
-t1 = '( + 1 (- 2 3))'
+t1 = '( + (* 1 (- 2 3)) (- 69 55))'
 t2 = '(- 69 55)'
+t3 = '(* 100 67)'
+t4 = '(/ 5 2)'
 
 
-tk = read_text_format(t2)
+tk = read_text_format(t1)
 
 z = parse_expression(tk)
 
