@@ -78,8 +78,8 @@ def evaluate_r(n, stack):
 		evaluate_r(n.right,stack)
 	if n.left:
 		evaluate_r(n.left,stack)
-	if n.tokenized[0].isdigit():
-		stack.append(int(n.tokenized[0]))
+	if n.tokenized.isdigit():
+		stack.append(int(n.tokenized))
 	else:
 		val = stack.pop()
 		if n.tokenized == "+":
@@ -105,9 +105,10 @@ def evaluate(n):
 
 
 t1 = '( + 1 (- 2 3))'
+t2 = '(- 69 55)'
 
 
-tk = read_text_format(t1)
+tk = read_text_format(t2)
 
 z = parse_expression(tk)
 
