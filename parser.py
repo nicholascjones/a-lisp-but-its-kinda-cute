@@ -1,6 +1,6 @@
 from string import *
 
-tokens = set(['+','-','/','*','<','>','?','(',')','eq?','max','min','abs'])
+tokens = set(['+','-','/','*','<','>','?','(',')','eq?','max','min','abs','define'])
 
 vs = {}
 
@@ -92,15 +92,26 @@ def evaluate_r(n, stack):
 
 	val=0
 	if n.right:
+		print 'right'
 		evaluate_r(n.right,stack)
 	if n.left:
+		print 'left'
 		evaluate_r(n.left,stack)
 	if n.tokenized.isdigit():
 		if n.flt:
 			stack.append(float(n.tokenized))
 		else:
 			stack.append(int(n.tokenized))
+		print stack
+	elif n.tokenized.isalpha() and n.tokenized not in tokens:
+		if n.tokenized in vs:
+			stack.append(float(vs[n.tokenized]))
+		else:
+			stack.append(n.tokenized)
+		print stack
 	else:
+		print 'stack'
+		print stack
 		val = stack.pop()
 		if n.tokenized == "+":
 			val += stack.pop()
@@ -128,7 +139,12 @@ def evaluate_r(n, stack):
 				stack.append(val)
 			else:
 				stack.append(v2)
-
+		elif n.tokenized == "define":
+			print "hit it"
+			vs[str(val)] = stack.pop()
+			stack.append(val)
+			print 'stack'
+			print stack
 
 def evaluate(n):
 
@@ -145,18 +161,19 @@ t1 = '( + (* 1 (- 2 3)) (- 69 55))'
 t2 = '(- 69 55)'
 t3 = '(* 100 67)'
 t4 = '(/ 5 2)'
-t5 = '(def a 1)'
+t5 = '(define a 1)'
 t6 = '(min 1 2)'
 
 
 
-tk = read_text_format(t6)
+tk = read_text_format(t5)
 
 z = parse_expression(tk)
 
-dfs_recursive(z)
+#dfs_recursive(z)
 
 print evaluate(z)
+print vs
 
 
 
