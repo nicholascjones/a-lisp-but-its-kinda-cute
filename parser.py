@@ -70,28 +70,52 @@ def dfs_recursive(rt):
 		print "right = " + str(rt.right.tokenized)
 	print ")"
 
+## use list as stack! append pop
+def evaluate_r(n, stack):
+
+	val=0
+	if n.right:
+		evaluate_r(n.right,stack)
+	if n.left:
+		evaluate_r(n.left,stack)
+	if n.tokenized[0].isdigit():
+		stack.append(int(n.tokenized[0]))
+	else:
+		val = stack.pop()
+		if n.tokenized == "+":
+			val += stack.pop()
+			stack.append(val)
+		elif n.tokenized == "-":
+			val -= stack.pop()
+			stack.append(val)
+		elif n.tokenized == "/":
+			val /= stack.pop()
+			stack.append(val)
+		elif n.tokenized == "*":
+			val *= stack.pop()
+			stack.append(val)
+
+
+def evaluate(n):
+
+	s = []
+	evaluate_r(n,s)
+
+	return s[-1]
+
 
 t1 = '( + 1 (- 2 3))'
 
 
 tk = read_text_format(t1)
-#print tk
+
 z = parse_expression(tk)
-"""
-print z.tokenized
-print z.left
-print z.right
-"""
+
 dfs_recursive(z)
-#print z.left.tokenized
-#print z.right.tokenized
+
+print evaluate(z)
 
 
-"""
-print Z.tokenized
-print Z.left
-print Z.right
-"""
 
 
 
