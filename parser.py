@@ -1,6 +1,6 @@
 from string import *
 
-tokens = set(['+','-','/','*','<','>','?','(',')','eq?'])
+tokens = set(['+','-','/','*','<','>','?','(',')','eq?','max','min','abs'])
 
 vs = {}
 
@@ -116,6 +116,19 @@ def evaluate_r(n, stack):
 			stack.append(val)
 		elif n.tokenized == "eq?":
 			stack.append(val==stack.pop())
+		elif n.tokenized == "max":
+			v2 = stack.pop()
+			if val >= v2:
+				stack.append(val)
+			else:
+				stack.append(v2)
+		elif n.tokenized == "min":
+			v2 = stack.pop()
+			if not val >= v2:
+				stack.append(val)
+			else:
+				stack.append(v2)
+
 
 def evaluate(n):
 
@@ -133,7 +146,7 @@ t2 = '(- 69 55)'
 t3 = '(* 100 67)'
 t4 = '(/ 5 2)'
 t5 = '(def a 1)'
-t6 = '(eq? 1 1)'
+t6 = '(min 1 2)'
 
 
 
