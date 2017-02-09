@@ -199,8 +199,9 @@ for line in sys.stdin.readlines():
 	print evaluate(z1)
 """
 inp = ''
+print 'welcome to the cutest darn LISP you\'ve ever heard!'
 while inp != 'quit':
-	inp = raw_input('>>> ')
+	inp = raw_input(':) >>> ')
 	t = read_text_format(inp)
 	z1 = parse_expression(t)
 	print evaluate(z1)

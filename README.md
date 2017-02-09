@@ -33,6 +33,8 @@ RUN INTERPRETER
 INTERACTION
 - At each step, prompts user for clause and prints output from clause.  Variables remain stored in memory.
 
+- In order to quit, respond 'quit' to the prompt
+
 FORMATTING:
 
 - All clauses in our interpreter must take the format of (<token> <input> <input>)
