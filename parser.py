@@ -1,6 +1,6 @@
 from string import *
 
-tokens = set(['+','-','/','*','<','>','?','(',')','eq?','max','min','abs','define'])
+tokens = set(['+','-','/','*','<','>','?','(',')','eq?','max','min','abs','define','||','&&'])
 
 vs = {}
 
@@ -22,15 +22,12 @@ class ParseNode:
 		self.left = left
 		self.right = right
 
-
-		#self.tokens = set(['+','-','/','*','<','>','?','(',')'])
-
-
-
 def read_text_format(txt):
 	tokenized = []
 	txt = txt.replace('(',' ( ')
 	txt = txt.replace(')',' ) ')
+	txt = txt.replace('#t','True')
+	txt = txt.replace('#f','False')
 	for term in txt.split():
 		if term in tokens:
 			tokenized.append(term)
@@ -49,7 +46,7 @@ def parse_token(tokenized):
 		token = s
 	elif s in tokens:
 		token = s
-	elif s.isalpha or s.isnum():
+	elif s.isalpha() or s.isdigit():
 		token = s
 
 	#print "token = " + str(token)
@@ -127,6 +124,34 @@ def evaluate_r(n, stack):
 			stack.append(val)
 		elif n.tokenized == "eq?":
 			stack.append(val==stack.pop())
+		elif n.tokenized == '<':
+			stack.append(val<stack.pop())
+		elif n.tokenized == '>':
+			stack.append(val>stack.pop())
+		elif n.tokenized == '||':
+			v2 = stack.pop()
+			val = (val or v2)
+			print "orrrrrr"
+			#stack.pop()
+			print val
+			stack.append((bool(val) and bool(v2)))
+		elif n.tokenized == '&&':
+			v2 = stack.pop()
+			#print "??"
+			#print val
+			#print stack.pop()
+			print val
+			print v2
+			print stack
+			stack.append((bool(val) and bool(v2)))
+			print stack
+			"""
+			print (val and v2)
+			print "aaaaand"
+			#stack.pop()
+			print val
+			stack.append(val)
+			"""
 		elif n.tokenized == "max":
 			v2 = stack.pop()
 			if val >= v2:
@@ -143,7 +168,7 @@ def evaluate_r(n, stack):
 			print "hit it"
 			vs[str(val)] = stack.pop()
 			stack.append(val)
-			print 'stack'
+			#print 'stack'
 			print stack
 
 def evaluate(n):
@@ -163,17 +188,22 @@ t3 = '(* 100 67)'
 t4 = '(/ 5 2)'
 t5 = '(define a 1)'
 t6 = '(min 1 2)'
+t7 = '(&& True False)'
 
 
 
-tk = read_text_format(t5)
+
+tk = read_text_format(t7)
+print tk
 
 z = parse_expression(tk)
+print z
 
-#dfs_recursive(z)
+dfs_recursive(z)
 
 print evaluate(z)
 print vs
+
 
 
 
