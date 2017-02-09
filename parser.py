@@ -29,8 +29,8 @@ def read_text_format(txt):
 	tokenized = []
 	txt = txt.replace('(',' ( ')
 	txt = txt.replace(')',' ) ')
-	#txt = txt.replace('#t','1')
-	#txt = txt.replace('#f','0')
+	txt = txt.replace('#t','1')
+	txt = txt.replace('#f','0')
 	for term in txt.split():
 		if term in tokens:
 			tokenized.append(term)
