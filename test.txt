@@ -1,0 +1,12 @@
+hello
+my
+name
+is
+jess
+( + (* 1 (- 2 3)) (- 69 55))
+(- 69 55)
+(* 100 67)
+(/ 5 2)
+(define a 1)'
+(min 1 2)
+(&& True False)
