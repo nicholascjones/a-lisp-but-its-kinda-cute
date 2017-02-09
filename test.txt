@@ -1,8 +1,12 @@
-( + (* 1 (- 2 3)) (- 69 55))
+( define a (+ (* 1 (- 2 3)) (- 69 55)))
 (- 69 55)
 (* 100 67)
 (/ 5 2)
-(define a 1)'
+(define c 1)'
 (min 1 2)
 (define b (+ a 3))
 (+ b 25)
+(+ a a)
+(define c (+ a 3))
+(define d (+ a b))
+(+ c d)

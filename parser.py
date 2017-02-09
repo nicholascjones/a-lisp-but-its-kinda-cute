@@ -97,7 +97,7 @@ def evaluate_r(n, stack):
 	if n.left:
 		#print 'left'
 		evaluate_r(n.left,stack)
-	
+
 	if n.tokenized.isdigit():
 		if n.flt:
 			stack.append(float(n.tokenized))
@@ -186,6 +186,7 @@ def evaluate_r(n, stack):
 				stack.append(v2)
 		elif n.tokenized == "define":
 			#print "hit it"
+
 			vs[str(val)] = stack.pop()
 			stack.append(val)
 			#print 'stack'
