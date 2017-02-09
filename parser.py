@@ -2,7 +2,7 @@
 from string import *
 import sys
 
-tokens = set(['+','-','/','*','<','>','?','(',')','eq?','max','min','define','||','&&','strcar','strcdr'])
+tokens = set(['+','-','/','*','<','>','?','(',')','eq?','max','min','define','||','&&'])
 
 
 vs = {}
@@ -125,13 +125,25 @@ def evaluate_r(n, stack):
 			stack.append(val)
 		elif n.tokenized == "*":
 			val *= stack.pop()
-			stack.append(val)
+			stack.append(val)	
 		elif n.tokenized == "eq?":
-			stack.append(val==stack.pop())
+			v2 = stack.pop()
+			if val == v2:
+				stack.append('#t')
+			else:
+				stack.append('#f')
 		elif n.tokenized == '<':
-			stack.append(val<stack.pop())
+			v2 = stack.pop()
+			if val < v2:
+				stack.append('#t')
+			else:
+				stack.append('#f')
 		elif n.tokenized == '>':
-			stack.append(val>stack.pop())
+			v2 = stack.pop()
+			if val > v2:
+				stack.append('#t')
+			else:
+				stack.append('#f')
 		elif n.tokenized == '||':
 			v2 = stack.pop()
 			if ((bool(val) or (bool(v2)))):

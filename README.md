@@ -5,7 +5,7 @@ Jessica Cioffi and Nicholas Jones
 A small Scheme interpreter for Professor Peter Bui's course at the University of Notre Dame
 
 The project that we did was a Scheme interpreter.  It has the ability to perform computations, comparisons (both quantitative and logical),
-and declare variables.  It accepts input from a text file that contains the different computations to be performed on each line.  Originally, we took a base code written in C++, and converted it to Python in order to make expanding on the code’s functionality considerably 
+and declare variables.  It accepts input from a text file that contains the different computations to be performed on each line.  Originally, we took a base code written in C++, ported it to Python in order to make expanding on the code’s functionality considerably 
 easier.  From there, we added different operations that we considered vital to an interpreter.
 
 In regards to computing history, Scheme is one dialect of the programming language LISP.  LISP is the second oldest high-level programming
@@ -20,3 +20,35 @@ compensation from those who used it.  Meanwhile Steele and Sussman were not focu
 They solely wanted to spread the knowledge of computer science to expand their own horizions, as well of those of anyone interested.  
 
 That is why the Scheme interpreter is an important historical artifact, and one we decided to replicate. 
+
+INSTRUCTIONS:
+
+DOWNLOAD:
+- Clone the GitHub repo ( https://github.com/nicholascjones/a-lisp-but-its-kinda-cute ) onto your machine
+- Enable execution privileges on 'parser.py' ($ chmod +x parser.py)
+
+RUN SCRIPT:
+- Interpret a textfile 'tf' with the following command: ($ ./parser.py tf)
+
+TEXTFILE FORMATTING:
+
+- All clauses in our interpreter must take the format of (<token> <input> <input>)
+	* Token is a symbol that performs an action, such as a mathematical or logical operation
+	* Input can either be a postive integer, a boolean literal, another clause, or a variable
+- Tokens are as such:
+	+ adds two numbers
+	- subtracts two numbers
+	/ divides two numbers
+	* multiplies two numbers
+	max takes maximum of two numbers
+	min takes minimum of two numbers
+	|| takes logical or of two booleans
+	&& takes logical and of two booleans
+	eq? tests for equality of two numbers
+	> tests first number greater than second
+	< tests first number lesser than second
+	define allows definition of a variable as another value to be used later
+
+
+
+
