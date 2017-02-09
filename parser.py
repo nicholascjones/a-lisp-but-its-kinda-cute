@@ -4,7 +4,6 @@ import sys
 
 tokens = set(['+','-','/','*','<','>','?','(',')','eq?','max','min','define','||','&&'])
 
-
 vs = {}
 
 class ParseNode:
