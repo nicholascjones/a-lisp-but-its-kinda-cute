@@ -53,6 +53,7 @@ FORMATTING:
 	> tests first number greater than second
 	< tests first number lesser than second
 	define allows definition of a variable as another value to be used later
+		--> NOTE: Variables only intended to hold numbers, not boolean literals.
 
 Sources:
 http://norvig.com/lispy.html
