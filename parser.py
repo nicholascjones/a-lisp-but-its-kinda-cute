@@ -183,13 +183,27 @@ def read_from_file():
   #print x # prints for checking
   return x
 
-lst = read_from_file()
-
+#lst = read_from_file()
+"""
 for ln in lst:
 	t = read_text_format(ln)
 	z1 = parse_expression(t)
 	print evaluate(z1)
 	#print vs
+"""
+"""
+inp = ''
+for line in sys.stdin.readlines():
+	t = read_text_format(line)
+	z1 = parse_expression(t)
+	print evaluate(z1)
+"""
+inp = ''
+while inp != 'quit':
+	inp = raw_input('>>> ')
+	t = read_text_format(inp)
+	z1 = parse_expression(t)
+	print evaluate(z1)
 
 
 

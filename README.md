@@ -27,10 +27,13 @@ DOWNLOAD:
 - Clone the GitHub repo ( https://github.com/nicholascjones/a-lisp-but-its-kinda-cute ) onto your machine
 - Enable execution privileges on 'parser.py' ($ chmod +x parser.py)
 
-RUN SCRIPT:
-- Interpret a textfile 'tf' with the following command: ($ ./parser.py tf)
+RUN INTERPRETER
+- Runs with the following command: ($ ./parser.py)
 
-TEXTFILE FORMATTING:
+INTERACTION
+- At each step, prompts user for clause and prints output from clause.  Variables remain stored in memory.
+
+FORMATTING:
 
 - All clauses in our interpreter must take the format of (<token> <input> <input>)
 	* Token is a symbol that performs an action, such as a mathematical or logical operation
