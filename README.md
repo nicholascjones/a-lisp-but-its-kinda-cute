@@ -49,6 +49,10 @@ TEXTFILE FORMATTING:
 	< tests first number lesser than second
 	define allows definition of a variable as another value to be used later
 
+Sources:
+http://norvig.com/lispy.html
+http://www.buildyourownlisp.com/contents
+https://inst.eecs.berkeley.edu/~cs61a/fa12/projects/scheme/scheme.html
 
 
 
