@@ -10,3 +10,4 @@
 (define c (+ a 3))
 (define d (+ a b))
 (+ c d)
+(&& 1 1)

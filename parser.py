@@ -2,7 +2,7 @@
 from string import *
 import sys
 
-tokens = set(['+','-','/','*','<','>','?','(',')','eq?','max','min','abs','define','||','&&'])
+tokens = set(['+','-','/','*','<','>','?','(',')','eq?','max','min','define','||','&&','strcar','strcdr'])
 
 
 vs = {}
@@ -29,8 +29,8 @@ def read_text_format(txt):
 	tokenized = []
 	txt = txt.replace('(',' ( ')
 	txt = txt.replace(')',' ) ')
-	#txt = txt.replace('#t','True')
-	#txt = txt.replace('#f','False')
+	#txt = txt.replace('#t','1')
+	#txt = txt.replace('#f','0')
 	for term in txt.split():
 		if term in tokens:
 			tokenized.append(term)
@@ -110,13 +110,9 @@ def evaluate_r(n, stack):
 		else:
 			stack.append(n.tokenized)
 		#print stack
-	elif n.tokenized == '#t':
-		stack.append(bool(True))
-	elif n.tokenized == '#f':
-		stack.append(bool(False))
 	else:
-		print 'stack'
-		print stack
+		#print 'stack'
+		#print stack
 		val = stack.pop()
 		if n.tokenized == "+":
 			val += stack.pop()
@@ -138,8 +134,10 @@ def evaluate_r(n, stack):
 			stack.append(val>stack.pop())
 		elif n.tokenized == '||':
 			v2 = stack.pop()
-			print v2
-			print val
+			if ((bool(val) or (bool(v2)))):
+				stack.append('#t')
+			else:
+				stack.append('#f')
 			"""
 			if ((bool(val) or (bool(v2)))):
 				stack.append('#t')
@@ -151,8 +149,8 @@ def evaluate_r(n, stack):
 			#print val
 			#stack.append(bool(val))
 		elif n.tokenized == '&&':
-			print val
-			print stack.pop()
+			#print val
+			#print stack.pop()
 			v2 = stack.pop()
 			#print "??"
 			#print val
@@ -184,6 +182,8 @@ def evaluate_r(n, stack):
 				stack.append(val)
 			else:
 				stack.append(v2)
+		elif n.tokenized == 'strcar':
+			stack.append(list(val)[0])
 		elif n.tokenized == "define":
 			#print "hit it"
 
@@ -201,6 +201,13 @@ def evaluate(n):
 		return s[-1]
 	except:
 		return None
+
+def to_boolean(x):
+	if x == '#t':
+		return True
+	if x == '#f':
+		return False
+
 
 
 def read_from_file():
@@ -223,7 +230,7 @@ t3 = '(* 100 67)'
 t4 = '(/ 5 2)'
 t5 = '(define a 1)'
 t6 = '(min 1 2)'
-t7 = '(&& True False)'
+t7 = '(&& 1 0)'
 
 """
 tk = read_text_format(t7)
@@ -244,7 +251,7 @@ for ln in lst:
 	t = read_text_format(ln)
 	z1 = parse_expression(t)
 	print evaluate(z1)
-	print vs
+	#print vs
 
 
 
