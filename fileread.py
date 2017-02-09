@@ -10,6 +10,7 @@ def read_from_file():
     formatted = x[i].rstrip() # removes the new lines
     x[i] = formatted
 
-  print x # prints for checking
+  #print x # prints for checking
+  return x
 
-read_from_file() # function call to show it worked :)
+#read_from_file() # function call to show it worked :)
