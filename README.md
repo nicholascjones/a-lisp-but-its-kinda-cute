@@ -33,6 +33,8 @@ RUN INTERPRETER
 INTERACTION
 - At each step, prompts user for clause and prints output from clause.  Variables remain stored in memory.
 
+- Uses a Python file prompt rather than traditional Python standardinput in order to make interaction easier for the user.
+
 - In order to quit, respond 'quit' to the prompt
 
 FORMATTING:
