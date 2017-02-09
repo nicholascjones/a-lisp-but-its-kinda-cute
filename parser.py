@@ -29,8 +29,8 @@ def read_text_format(txt):
 	tokenized = []
 	txt = txt.replace('(',' ( ')
 	txt = txt.replace(')',' ) ')
-	txt = txt.replace('#t','True')
-	txt = txt.replace('#f','False')
+	#txt = txt.replace('#t','True')
+	#txt = txt.replace('#f','False')
 	for term in txt.split():
 		if term in tokens:
 			tokenized.append(term)
@@ -97,6 +97,7 @@ def evaluate_r(n, stack):
 	if n.left:
 		#print 'left'
 		evaluate_r(n.left,stack)
+	
 	if n.tokenized.isdigit():
 		if n.flt:
 			stack.append(float(n.tokenized))
@@ -108,10 +109,14 @@ def evaluate_r(n, stack):
 			stack.append(float(vs[n.tokenized]))
 		else:
 			stack.append(n.tokenized)
-		print stack
-	else:
-		#print 'stack'
 		#print stack
+	elif n.tokenized == '#t':
+		stack.append(bool(True))
+	elif n.tokenized == '#f':
+		stack.append(bool(False))
+	else:
+		print 'stack'
+		print stack
 		val = stack.pop()
 		if n.tokenized == "+":
 			val += stack.pop()
@@ -133,12 +138,21 @@ def evaluate_r(n, stack):
 			stack.append(val>stack.pop())
 		elif n.tokenized == '||':
 			v2 = stack.pop()
-			val = (val or v2)
+			print v2
+			print val
+			"""
+			if ((bool(val) or (bool(v2)))):
+				stack.append('#t')
+			else:
+				stack.append('#f')
+			"""
 			#print "orrrrrr"
 			#stack.pop()
 			#print val
-			stack.append((bool(val) and bool(v2)))
+			#stack.append(bool(val))
 		elif n.tokenized == '&&':
+			print val
+			print stack.pop()
 			v2 = stack.pop()
 			#print "??"
 			#print val
@@ -146,7 +160,10 @@ def evaluate_r(n, stack):
 			#print val
 			#print v2
 			#print stack
-			stack.append((bool(val) and bool(v2)))
+			if ((bool(val) and (bool(v2)))):
+				stack.append('#t')
+			else:
+				stack.append('#f')
 			#print stack
 			"""
 			print (val and v2)
@@ -206,8 +223,6 @@ t4 = '(/ 5 2)'
 t5 = '(define a 1)'
 t6 = '(min 1 2)'
 t7 = '(&& True False)'
-
-
 
 """
 tk = read_text_format(t7)
